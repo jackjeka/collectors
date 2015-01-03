@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/jackjeka/collectors.svg?branch=master)](https://travis-ci.org/jackjeka/collectors)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jackjeka/penguins-map/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jackjeka/penguins-map/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jackjeka/collectors/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jackjeka/collectors/?branch=master)
 
 # Collectors app
 
