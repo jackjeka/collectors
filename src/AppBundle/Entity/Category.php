@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Category
  *
  * @ORM\Table()
+ * @UniqueEntity("name")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
@@ -25,8 +27,7 @@ class Category
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique="true")
      */
     private $name;
 

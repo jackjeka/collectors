@@ -25,7 +25,7 @@ class Item
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -57,7 +57,7 @@ class Item
 
     /**
      * @var \Datetime
-     *
+     * @Assert\Date()
      * @ORM\Column(name="acquisitionDate", type="date")
      */
     private $acquisitionDate;

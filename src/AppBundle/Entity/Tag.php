@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Gedmo\Timestampable as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tag
  *
  * @ORM\Table()
+ * @UniqueEntity("tag")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TagRepository")
  */
 class Tag
@@ -25,8 +27,8 @@ class Tag
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @ORM\Column(name="name", type="string", length=255, unique="true")
      */
     private $name;
 
