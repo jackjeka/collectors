@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -27,15 +29,23 @@ class Category
 
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=255, unique="true")
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 
     /**
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Catalog", mappedBy="category")
      */
     private $catalogs;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->catalogs = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -71,42 +81,12 @@ class Category
     }
 
     /**
-     * Set catalogs
-     *
-     * @param \stdClass $catalogs
-     * @return Category
-     */
-    public function setCatalogs($catalogs)
-    {
-        $this->catalogs = $catalogs;
-
-        return $this;
-    }
-
-    /**
-     * Get catalogs
-     *
-     * @return \stdClass 
-     */
-    public function getCatalogs()
-    {
-        return $this->catalogs;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->catalogs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add catalogs
      *
-     * @param \AppBundle\Entity\Catalog $catalogs
+     * @param Catalog $catalogs
      * @return Category
      */
-    public function addCatalog(\AppBundle\Entity\Catalog $catalogs)
+    public function addCatalog(Catalog $catalogs)
     {
         $this->catalogs[] = $catalogs;
 
@@ -116,11 +96,21 @@ class Category
     /**
      * Remove catalogs
      *
-     * @param \AppBundle\Entity\Catalog $catalogs
+     * @param Catalog $catalogs
      */
-    public function removeCatalog(\AppBundle\Entity\Catalog $catalogs)
+    public function removeCatalog(Catalog $catalogs)
     {
         $this->catalogs->removeElement($catalogs);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
     }
 
     public function __toString()

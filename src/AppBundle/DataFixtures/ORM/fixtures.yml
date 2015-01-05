@@ -1,0 +1,27 @@
+AppBundle\Entity\Category:
+  category{1..5}:
+    name (unique): <categoryName()>
+    catalogs: 5x @catalog*
+
+AppBundle\Entity\Tag:
+  tag{1..5}:
+    name (unique): <tagName()>
+    items: 5x @item*
+
+AppBundle\Entity\Catalog:
+  catalog{1..5}:
+    name: <word()>
+    description: <text()>
+    items: 5x @item*
+    category: @category*
+    createdAt: <dateTime()>
+    startDate: <dateTimeBetween('-50 years', 'now')>
+
+AppBundle\Entity\Item:
+  item{1..25}:
+    name: <word()>
+    catalog: @catalog*
+    tags: 5x @tag*
+    description: <text()>
+    createdAt: <dateTime()>
+    acquisitionDate: <dateTimeBetween('-50 years', 'now')>

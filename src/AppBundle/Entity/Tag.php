@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Item;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,16 +31,22 @@ class Tag
     /**
      * @var string
      * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", length=255, unique="true")
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 
     /**
-     *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Item", inversedBy="tags")
      */
     private $items;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -73,42 +82,12 @@ class Tag
     }
 
     /**
-     * Set items
-     *
-     * @param \stdClass $items
-     * @return Tag
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-
-        return $this;
-    }
-
-    /**
-     * Get items
-     *
-     * @return \stdClass 
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add items
      *
-     * @param \AppBundle\Entity\Item $items
+     * @param Item $items
      * @return Tag
      */
-    public function addItem(\AppBundle\Entity\Item $items)
+    public function addItem(Item $items)
     {
         $this->items[] = $items;
 
@@ -118,11 +97,21 @@ class Tag
     /**
      * Remove items
      *
-     * @param \AppBundle\Entity\Item $items
+     * @param Item $items
      */
-    public function removeItem(\AppBundle\Entity\Item $items)
+    public function removeItem(Item $items)
     {
         $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
     public function __toString()

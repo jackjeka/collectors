@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,35 +40,41 @@ class Item
     private $description;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Catalog", inversedBy="items")
      */
     private $catalog;
 
     /**
-     *@ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="items")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="items")
      */
     private $tags;
 
     /**
-     * @var \DateTime
+     * @var datetime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var \Datetime
-     * @Assert\Date()
+     * @var datetime
+     *
      * @ORM\Column(name="acquisitionDate", type="date")
      */
     private $acquisitionDate;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +97,7 @@ class Item
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -112,7 +120,7 @@ class Item
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -120,55 +128,9 @@ class Item
     }
 
     /**
-     * Set catalog
-     *
-     * @param \stdClass $catalog
-     * @return Item
-     */
-    public function setCatalog($catalog)
-    {
-        $this->catalog = $catalog;
-
-        return $this;
-    }
-
-    /**
-     * Get catalog
-     *
-     * @return \stdClass 
-     */
-    public function getCatalog()
-    {
-        return $this->catalog;
-    }
-
-    /**
-     * Set tags
-     *
-     * @param \stdClass $tags
-     * @return Item
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return \stdClass 
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param datetime $createdAt
      * @return Item
      */
     public function setCreatedAt($createdAt)
@@ -181,7 +143,7 @@ class Item
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -191,7 +153,7 @@ class Item
     /**
      * Set acquisitionDate
      *
-     * @param \DateTime $acquisitionDate
+     * @param datetime $acquisitionDate
      * @return Item
      */
     public function setAcquisitionDate($acquisitionDate)
@@ -204,27 +166,43 @@ class Item
     /**
      * Get acquisitionDate
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getAcquisitionDate()
     {
         return $this->acquisitionDate;
     }
+
     /**
-     * Constructor
+     * Set catalog
+     *
+     * @param Catalog $catalog
+     * @return Item
      */
-    public function __construct()
+    public function setCatalog(Catalog $catalog)
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->catalog = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Get catalog
+     *
+     * @return Catalog
+     */
+    public function getCatalog()
+    {
+        return $this->catalog;
     }
 
     /**
      * Add tags
      *
-     * @param \AppBundle\Entity\Tag $tags
+     * @param Tag $tags
      * @return Item
      */
-    public function addTag(\AppBundle\Entity\Tag $tags)
+    public function addTag(Tag $tags)
     {
         $this->tags[] = $tags;
 
@@ -234,10 +212,26 @@ class Item
     /**
      * Remove tags
      *
-     * @param \AppBundle\Entity\Tag $tags
+     * @param Tag $tags
      */
-    public function removeTag(\AppBundle\Entity\Tag $tags)
+    public function removeTag(Tag $tags)
     {
         $this->tags->removeElement($tags);
     }
+
+    /**
+     * Get tags
+     *
+     * @return Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
+

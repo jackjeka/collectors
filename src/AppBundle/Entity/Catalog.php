@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,30 +43,36 @@ class Catalog
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item", mappedBy="catalog")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item", mappedBy="catalog", cascade={"persist", "remove"})
      */
     private $items;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="catalogs")
      */
     private $category;
 
     /**
-     * @var \DateTime
+     * @var datetime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="startDate", type="datetime")
      */
     private $startDate;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -122,55 +131,9 @@ class Catalog
     }
 
     /**
-     * Set items
-     *
-     * @param \stdClass $items
-     * @return Catalog
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-
-        return $this;
-    }
-
-    /**
-     * Get items
-     *
-     * @return \stdClass 
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-    * Set category
-    *
-    * @param \stdClass $category
-    * @return Catalog
-    */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \stdClass 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param datetime $createdAt
      * @return Catalog
      */
     public function setCreatedAt($createdAt)
@@ -183,7 +146,7 @@ class Catalog
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -193,7 +156,7 @@ class Catalog
     /**
      * Set startDate
      *
-     * @param \DateTime $startDate
+     * @param datetime $startDate
      * @return Catalog
      */
     public function setStartDate($startDate)
@@ -206,27 +169,20 @@ class Catalog
     /**
      * Get startDate
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getStartDate()
     {
         return $this->startDate;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add items
      *
-     * @param \AppBundle\Entity\Item $items
+     * @param Item $items
      * @return Catalog
      */
-    public function addItem(\AppBundle\Entity\Item $items)
+    public function addItem(Item $items)
     {
         $this->items[] = $items;
 
@@ -236,11 +192,44 @@ class Catalog
     /**
      * Remove items
      *
-     * @param \AppBundle\Entity\Item $items
+     * @param Item $items
      */
-    public function removeItem(\AppBundle\Entity\Item $items)
+    public function removeItem(Item $items)
     {
         $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Set category
+     *
+     * @param Category $category
+     * @return Catalog
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 
     public function __toString()
