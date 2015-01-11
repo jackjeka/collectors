@@ -4,23 +4,19 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-class CreateCatalogType extends AbstractType
+class ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', 'text', [
-                'label' => 'catalog.catalog_name'
+                'label' => 'item.item_name'
             ])
             ->add('description', 'textarea', [
-                'label' => 'catalog.catalog_description'
+                'label' => 'item.item_description'
             ])
             ->add('createdAt', 'hidden')
-            ->add('items', 'collection', [
-                'type' => new CreateItemType(),
-                'label' => 'catalog.items_list',
-                'allow_add' => true
-            ]);
+            ;
     }
 
     /**
@@ -29,12 +25,12 @@ class CreateCatalogType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Santa\CoolSchoolBundle\Entity\School',
+            'data_class' => 'AppBundle\Entity\Item',
         ]);
     }
 
     public function getName()
     {
-        return 'Catalog';
+        return 'Item';
     }
 }
