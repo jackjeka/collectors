@@ -20,10 +20,6 @@ class DefaultController extends Controller
     {
         $catalogs = $this->getDoctrine()->getManager()->getRepository('AppBundle:Catalog')->findAll();
 
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $catalogs,
-            $request->query->get('page', 1), 5);
-        return ['pagination' => $pagination, 'catalogs' => $catalogs];
+        return ['catalogs' => $catalogs];
     }
 }

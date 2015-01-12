@@ -1,13 +1,12 @@
 <?php
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\Catalog;
 use AppBundle\Form\Type\CatalogType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template as Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class CatalogController extends Controller
@@ -15,39 +14,36 @@ class CatalogController extends Controller
 
     /**
      * @Template()
-     * @param  Catalog $catalog
+     * @param Catalog $catalog
      * @return array
+     * @Route("/catalogs/{id}", name="catalog")
      */
-    public function viewAction(Catalog $catalog)
+    public function showAction(Catalog $catalog)
     {
         return [
-            'catalog' => $catalog
+            'catalog'=>$catalog
         ];
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @Method({"POST", "GET"})
-     * @Route("/create-catalog")
-     * @Template()
+     * @Route("/create-catalog", name="create-catalog")
+     * @param  Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function createAction(Request $request)
+    public function createCatalogAction(Request $request)
     {
-
         $catalog = new Catalog();
-
         $form = $this->createForm(new CatalogType(), $catalog);
-
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->persist($catalog);
             $this->getDoctrine()->getManager()->flush();
+            return $this->redirect($this->generateUrl('app_default_index'));
         }
-
-        return [
-            'form' => $form->createView(),
-        ];
+        return $this->render('AppBundle:Catalog:create-catalog.html.twig',
+            [
+                'form' => $form->createView(),
+            ]);
     }
+
 }
