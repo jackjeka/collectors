@@ -37,9 +37,9 @@
         "doctrine/migrations": "1.0.*@dev",
         "knplabs/knp-paginator-bundle": "~2.4",
         "knplabs/knp-menu-bundle": "2.0.*@dev",
-        "twbs/bootstrap": "3.0.*",
-        "jquery/jquery":  "1.10.*",
-        "braincrafted/bootstrap-bundle": "~2.0"
+        "twbs/bootstrap": "3.2.*",
+        "components/jquery": "dev-master",
+        "braincrafted/bootstrap-bundle": "2.1.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
