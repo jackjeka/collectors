@@ -1,9 +1,11 @@
 <?php
 namespace AppBundle\Form\Type;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 class CatalogType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -11,16 +13,32 @@ class CatalogType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('description', 'textarea')
-            ->add('createdAt', 'hidden')
-            ->add('items', 'collection', [
+            ->add('category', 'entity', [
+                'class' => 'AppBundle\Entity\Category',
+                ]
+            )
+            ->add('startDate', 'date', [
+                'input'  => 'datetime',
+                'widget' => 'choice',
+                ]
+            )
+            ->add('createdAt', 'hidden', [
+                    'mapped' => false,
+                ]
+            )
+            ->add('items', 'bootstrap_collection', [
                 'type' => new ItemType(),
                 'allow_add' => true,
-                'allow_delete'=> true,
-                'mapped' => false,
-                'label' => 'catalog.items_list',
-                'by_reference' => false,
+                'allow_delete' => true,
+                'sub_widget_col' => 9,
+                'button_col'=> 3,
                 'prototype_name' => 'items',
-            ]);
+                'options' => [
+                    'attr' => ['style' => 'inline'
+                    ]
+                ]
+            ])
+            ->getForm();
     }
 
     /**
@@ -30,6 +48,7 @@ class CatalogType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Catalog',
+            ''
         ]);
     }
 

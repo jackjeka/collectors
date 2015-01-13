@@ -6,6 +6,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ItemType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -16,7 +20,7 @@ class ItemType extends AbstractType
                 'label' => 'item.item_description'
             ])
             ->add('createdAt', 'hidden')
-            ;
+            ->getForm();
     }
 
     /**
@@ -29,6 +33,9 @@ class ItemType extends AbstractType
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'Item';
