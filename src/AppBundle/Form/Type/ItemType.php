@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Item;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -12,15 +13,17 @@ class ItemType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('name', 'text', [
-                'label' => 'item.item_name'
-            ])
-            ->add('description', 'textarea', [
-                'label' => 'item.item_description'
-            ])
+            ->add('name', 'text')
+            ->add('description', 'textarea')
             ->add('createdAt', 'hidden')
-            ->getForm();
+            ->add('acquisitionDate', 'date', [
+                    'input'  => 'datetime',
+                    'widget' => 'choice',
+                ]
+            )
+            ;
     }
 
     /**

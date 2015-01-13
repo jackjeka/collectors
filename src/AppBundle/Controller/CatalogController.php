@@ -2,7 +2,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Catalog;
+use AppBundle\Entity\Item;
 use AppBundle\Form\Type\CatalogType;
+use AppBundle\Form\Type\ItemType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template as Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

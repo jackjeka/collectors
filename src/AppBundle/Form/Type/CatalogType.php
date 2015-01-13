@@ -2,12 +2,14 @@
 namespace AppBundle\Form\Type;
 
 
+use AppBundle\Entity\Catalog;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CatalogType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -27,18 +29,19 @@ class CatalogType extends AbstractType
                 ]
             )
             ->add('items', 'bootstrap_collection', [
-                'type' => new ItemType(),
+                'type'=> 'repeated',
+                'cascade_validation' => true,
+                'inherit_data' => true,
                 'allow_add' => true,
-                'allow_delete' => true,
-                'sub_widget_col' => 9,
-                'button_col'=> 3,
-                'prototype_name' => 'items',
+                'allow_delete'=> true,
+                'prototype_name' => 'inlinep',
                 'options' => [
-                    'attr' => ['style' => 'inline'
+                    'attr' => [
+                        'style' => 'inline',
                     ]
                 ]
-            ])
-            ->getForm();
+            ]
+        );
     }
 
     /**
