@@ -35,12 +35,14 @@ class CatalogController extends Controller
         $catalog = new Catalog();
         $form = $this->createForm(new CatalogType(), $catalog);
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->persist($catalog);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirect($this->generateUrl('app_default_index'));
         }
-        return $this->render('AppBundle:Catalog:create-catalog.html.twig',
+
+        return $this->render('AppBundle:Catalog:create.html.twig',
             [
                 'form' => $form->createView(),
             ]);

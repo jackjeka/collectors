@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
 {% block content%}
     <div class="row col-lg-6 col-md-offset-3">
         <form method="POST">
             {{ form_errors(form) }}
-
             <div>
                 {{ form_row(form.name) }}
             </div>
@@ -13,21 +13,23 @@
                 {{ form_row(form.description) }}
             </div>
 
-            <div class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
-                    {{ form_row(form.items) }}
+            <div>
+                {{ form_row(form.category) }}
             </div>
+
+            <div>
+                {{ form_row(form.startDate) }}
+            </div>
+
+            {{ form_row(form.items) }}
 
             <div>
                 {{ form_rest(form) }}
             </div>
-
             <div class="col-lg-6 col-md-offset-3">
                 <button class="btn btn-default" type="submit">Create catalog</button>
             </div>
         </form>
     </div>
 {% endblock %}
-    {% block javascripts %}
-        <script src="{{ asset('bundles/app/js/common.js') }}" ></script>
-    {% endblock %}
 
