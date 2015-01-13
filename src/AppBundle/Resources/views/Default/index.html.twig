@@ -1,29 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        {% for catalog in catalogs %}
-            <div class="col-lg-4 col-md-4 thumbnail">
-                <a href="#"><h3>{{ catalog.name }}</h3></a>
-                <a href="{{ path('app_catalog_get', {"slug" : catalog.slug}) }}">{{ catalog.description | slice (0, 150)}}</a>
+
+    <div class="container">
+        <div class="row">
+            {% for catalog in catalogs %}
+                <div class="col-sm-4 col-lg-4 col-md-4 thumbnail">
+                    <div class="caption">
+                        <a href="#">
+                            <h3>{{ catalog.name }}</h3>
+                        </a>
+                        <a href="{{ path('catalog', {'id' : catalog.id}) }}">{{ catalog.description | slice (0, 150)}}</a></p>
+                    </div>
+
                     <div class="col-lg-10 col-md-offset-1 panel panel-default">
                         <div class="panel-body">
                             Recent items in this collection
                         </div>
-                        <div class="list-group">
-                        {%  for items in catalogs %}
-                            <a href="#" class="list-group-item">{{ items }}</a>
-                        {% endfor %}
-                        </div>
-                        <a href="{{ path('app_catalog_get', {"slug" : catalog.slug}) }}" class="btn btn-success">
-                                View more
-                        </a>
-                    </div>
-            </div>
 
-        {% endfor %}
-        <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
+                        <div class="list-group">
+                            {%  for item in catalog.items|slice(0, 5) %}
+                                <a href="#" class="list-group-item">{{ item.name }}</a>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h2 class="col-lg-12">{{ catalog.name }}</h2>
+
+    <div class="col-lg-8">
+
+        <h3 class="col-lg-12">Specialized on:</h3>
+        <h4 class="col-lg-12">{{ catalog.category }}</h4>
+
+        <h3 class="col-lg-12">Started collecting at:</h3>
+        <div class="col-lg-12">
+            {{ catalog.startDate|date('d.m.Y') }}
+        </div>
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Items in this collection</h3>
+                </div>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th></th>
+                        <th>Item name</th>
+                        <th><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Acquisition date</th>
+                        <th><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tags</th>
+                    </tr>
+                    {% set counter = 1 %}
+
+                    {% for item in catalog.items %}
+                        <tr>
+                            <td>{{ counter }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.acquisitionDate|date('d.m.Y') }}</td>
+                            <td>{% for tag in item.tags %}
+                                    {{ tag.name }}
+                                    {% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+
+                        {% set counter = counter + 1 %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

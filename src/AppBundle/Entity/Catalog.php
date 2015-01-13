@@ -42,7 +42,7 @@ class Catalog
     private $description;
 
     /**
-     *
+     * @Assert\Count(min="3")
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item", mappedBy="catalog", cascade={"persist", "remove"})
      */
     private $items;
