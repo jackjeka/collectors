@@ -29,12 +29,12 @@ class CatalogType extends AbstractType
                 ]
             )
             ->add('items', 'bootstrap_collection', [
-                'type'=> 'repeated',
+                'type'=> new ItemType(),
                 'cascade_validation' => true,
                 'inherit_data' => true,
                 'allow_add' => true,
                 'allow_delete'=> true,
-                'prototype_name' => 'inlinep',
+                'prototype_name' => 'items',
                 'options' => [
                     'attr' => [
                         'style' => 'inline',

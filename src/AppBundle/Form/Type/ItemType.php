@@ -18,6 +18,9 @@ class ItemType extends AbstractType
             ->add('name', 'text')
             ->add('description', 'textarea')
             ->add('createdAt', 'hidden')
+            ->add('catalog', 'entity', [
+                'class' => 'AppBundle\Entity\Catalog',
+            ])
             ->add('acquisitionDate', 'date', [
                     'input'  => 'datetime',
                     'widget' => 'choice',
