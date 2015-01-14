@@ -10,7 +10,9 @@
                         <a href="#">
                             <h3>{{ catalog.name }}</h3>
                         </a>
-                        <a href="{{ path('catalog', {'id' : catalog.id}) }}">{{ catalog.description | slice (0, 150)}}</a></p>
+                        <a href="{{ path('catalogs_show', {'id' : catalog.id}) }}">
+                            <p>{{ catalog.description | slice (0, 150)}} </p>
+                        </a>
                     </div>
 
                     <div class="col-lg-10 col-md-offset-1 panel panel-default">
@@ -19,8 +21,8 @@
                         </div>
 
                         <div class="list-group">
-                            {%  for item in catalog.items|slice(0, 5) %}
-                                <a href="#" class="list-group-item">{{ item.name }}</a>
+                            {%  for item in catalog.items%}
+                                <a href="{{ path('items_show', {'id': item.id}) }}" class="list-group-item">{{ item.name }}</a>
                             {% endfor %}
                         </div>
 
